@@ -36,7 +36,7 @@ import Jimp = require('jimp');
     let { image_url } = req.query;
 
     if (!image_url) {
-      return res.status(400).send(`Invalid request.`);
+      return res.status(400).send(`Invalid request. image_url is required`);
     }
     
     return res.status(200).send(`image processed, ${image_url}`);
