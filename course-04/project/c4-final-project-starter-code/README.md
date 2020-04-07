@@ -1,5 +1,5 @@
 # Important TODO
-https://rehcti7330.execute-api.us-east-2.amazonaws.com/dev
+https://foegnbtuc9.execute-api.us-east-2.amazonaws.com/dev
 
 Use above url to test API through Postman
 
