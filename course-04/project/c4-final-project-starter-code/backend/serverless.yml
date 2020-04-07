@@ -15,6 +15,7 @@ provider:
   environment:
     TODOS_TABLE: Todos=${self:provider.stage}
     IMAGES_S3_BUCKET: serverless-udagram-images-${self:provider.stage}
+    AUTH_0_SECRET: prhHoRkm5faCr1igkclfLT5wK8dsr5t20f1te0q-9qkmskMgJlOhJin9qdGa0k6W
 
 functions:
 
