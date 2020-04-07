@@ -5,34 +5,42 @@ import * as AWS from 'aws-sdk'
 import * as uuid from 'uuid'
 
 const docClient = new AWS.DynamoDB.DocumentClient()
+
 const todosTable = process.env.TODOS_TABLE
+const bucketName = process.env.IMAGES_S3_BUCKET
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  console.log('Processing event: ', event)
-  
-  const timestamp = new Date().toISOString()
-  const newTodo: CreateTodoRequest = JSON.parse(event.body)
-
   // TODO: Implement creating a new TODO item
+  const todoId = uuid.v4()
+  
+  const newItem = await createTodo(userId, event, todoId)
+  
+  return {
+    statusCode: 201,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    body: JSON.stringify({
+      item: {
+        ...newItem,
+      }
+    })
+  }
+})
+
+async function createTodo(userId: string, event: any, todoId: string){
+  const newTodo: CreateToDoRequest = JSON.parse(event.body)
   const newItem = {
-    id: todoID,
-    timestamp,
-    ...parsedBody
+    userId,
+    todoId,
+    ...newTodo,
+    attachmentUrl: `https://${bucketName}.s3.amazonaws.com/${todoId}`
   }
   console.log('Storing new item: ', newItem)
   
   await docClient.put({
     TableName: todosTable,
-    Item: newItem
+    Item: newItem,
   }).promise()
-  
-  return {
-    statusCode: 201,
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
-    body: JSON.stringify({
-      newItem
-    })
-  }
+  return newItem
 }
