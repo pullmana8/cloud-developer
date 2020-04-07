@@ -10,13 +10,16 @@ const todosTable = process.env.TODOS_TABLE
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log('Processing event: ', event)
   
+  const timestamp = new Date().toISOString()
   const newTodo: CreateTodoRequest = JSON.parse(event.body)
 
   // TODO: Implement creating a new TODO item
   const newItem = {
     id: todoID,
+    timestamp,
     ...parsedBody
   }
+  console.log('Storing new item: ', newItem)
   
   await docClient.put({
     TableName: todosTable,
