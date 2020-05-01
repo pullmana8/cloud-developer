@@ -9,7 +9,9 @@
     "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
     "prod": "tsc && node ./www/server.js",
     "clean": "rm -rf www/ || true",
-    "build": "npm run clean && tsc && cp -rf src/config www/config && cp .npmrc www/.npmrc && cp package.json www/package.json && cd www && zip -r Archive.zip . && cd .."
+    "build": "npm run clean && tsc && cp -rf src/config www/config && cp .npmrc www/.npmrc && cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [],
   "author": "Antonette Caldwell",
@@ -26,7 +28,8 @@
     "pg": "^7.11.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.10.0",
-    "sequelize-typescript": "^0.6.11"
+    "sequelize-typescript": "^0.6.11",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.27",
@@ -40,5 +43,6 @@
     "ts-node-dev": "^1.0.0-pre.40",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
-  }
+  },
+  "snyk": true
 }
